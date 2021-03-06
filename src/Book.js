@@ -1,11 +1,15 @@
 import React from 'react';
 
 const Book = ({book, handleChange}) => {
+    if(!book.imageLinks) {
+        book.imageLinks = {};
+        book.imageLinks.Thumbnail = "./icons/no-photo.svg";
+    }
     return (
         <li>
             <div className="book">
             <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail || book.imageLinks.Thumbnail})`}}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks.smallThumbnail || book.imageLinks.Thumbnail })`}}></div>
                 <div className="book-shelf-changer">
                 <select onChange = {(event) => handleChange(event,book)} value = {book.shelf || 'none'} >
                     <option value="move" disabled>Move to...</option>
