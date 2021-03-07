@@ -35,9 +35,16 @@ class BooksApp extends React.Component {
 
         const Books = this.state.books.filter(item => item.id !== book.id)
         book.shelf = event.target.value
+        const shelf = event.target.value;
         Books.push(book)
-
-        this.setState({books: Books})
+        this.setState({books: Books}, () => {
+            BooksAPI.update(book, shelf)
+            .then(result => {
+                if(result) {
+                    alert('Book updated');
+                }
+            });
+        })
 
     }
 
@@ -48,7 +55,12 @@ class BooksApp extends React.Component {
         }, () => {
             BooksAPI.search(this.state.search).then(result => {
                 this.setState({
-                    searchResult: result.error ? [] : result
+                    searchResult: result.error ? [] : Object.values(
+                        [...result, ...this.state.books].reduce(
+                          (acc, cur) => Object.assign(acc, { [cur.id]: cur }),
+                          {}
+                        )
+                      )
                 }, () => {
                     this.setState({loading: false});
                 });

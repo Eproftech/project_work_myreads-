@@ -9,7 +9,8 @@ These instructions will get the project up and running on your local machine;
 ### Prerequisites
 What you need to have in order to run the app on you machine.
 1. You need to have the latest version of npm
-```npm install -g npm
+```
+npm install -g npm
 ```
 
 ### Installing and running the project
